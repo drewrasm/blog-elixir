@@ -14,6 +14,14 @@ defmodule BlogWeb.Router do
     plug :accepts, ["json"]
   end
 
+  scope "/api", BlogWeb do
+    scope "auth" do
+      pipe_through [:browser]
+
+      get "/google/callback", AuthController, :google_callback
+    end
+  end
+
   scope "/", BlogWeb do
     pipe_through :browser
 
